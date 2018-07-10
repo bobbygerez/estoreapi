@@ -18,4 +18,8 @@ class User extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function roles(){
+        return $this->belongsToMany('App\Model\Role', 'role_user', 'user_id', 'role_id');
+    }
 }

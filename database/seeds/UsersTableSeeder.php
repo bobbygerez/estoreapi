@@ -19,6 +19,12 @@ class UsersTableSeeder extends Seeder
 
         	]);
 
+        $newUser = User::find($user->id);
+        $user->roles()->attach($user->id, [
+                'user_id' => $user->id,
+                'role_id' => 1
+            ]);
+
        $user = User::create([
                 'firstname' => 'store',
                 'lastname' => 'admin',
@@ -27,19 +33,37 @@ class UsersTableSeeder extends Seeder
 
             ]);
 
+        $newUser = User::find($user->id);
+        $newUser->roles()->attach($user->id, [
+                'user_id' => $user->id,
+                'role_id' => 12
+            ]);
+
         $user = User::create([
                 'firstname' => 'Super',
-                'lastname' => 'Staff',
+                'lastname' => 'Super Manager',
                 'email' => 'superStaff@juanmerkado.com',
                 'password' => Hash::make('12345678')
 
             ]);
+
+        $newUser = User::find($user->id);
+        $newUser->roles()->attach($user->id, [
+                'user_id' => $user->id,
+                'role_id' => 2
+            ]);
+
          $user = User::create([
                 'firstname' => 'Store',
-                'lastname' => 'Staff',
+                'lastname' => 'Store CEO',
                 'email' => 'storeStaff@juanmerkado.com',
                 'password' => Hash::make('12345678')
 
+            ]);
+        $newUser = User::find($user->id);
+        $newUser->roles()->attach($user->id, [
+                'user_id' => $user->id,
+                'role_id' => 13
             ]);
     }
 }
