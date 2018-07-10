@@ -8,3 +8,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'jwt.auth'], function () {
 });
 
 Route::get('menu-categories', 'API\Menu\MenuController@categories');
+Route::get('get-items/{catName}', 'API/Items/GetItemsController@cat');
+Route::get('get-items/{catName}/{subName}', 'API/Items/GetItemsController@subCat');
+Route::get('get-items/{catName}/{subName}/{furthName}', 'API/Items/GetItemsController@furtherCat');
+Route::resource('categories', 'API\Category\CategoryController');
