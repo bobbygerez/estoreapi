@@ -8,5 +8,5 @@ class Menu extends Model
 {
     
     protected $table = 'menus';
-    protected $fillable = ['name', 'to']
+    protected $fillable = ['name', 'to'];
 }
