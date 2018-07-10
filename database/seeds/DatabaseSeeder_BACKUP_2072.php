@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(SubCategoriesTableSeeder::class);
         $this->call(FurtherCategoriesTableSeeder::class);
-
+<<<<<<< HEAD
+=======
+        $this->call(UnitsTableSeeder::class);
+>>>>>>> b3b7de12289a4665cd3111463c0eeb2ea0b74158
     }
 }
