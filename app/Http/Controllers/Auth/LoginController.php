@@ -45,9 +45,7 @@ class LoginController extends Controller
 
         if (!$token = JWTAuth::attempt($credentials)) {
             return response([
-                'status' => 'error',
-                'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
+                'msg' => 'Invalid Email or Password'
             ], 400);
         }
         return response([
