@@ -7,6 +7,8 @@ use App\Model\SubCategory;
 use App\Model\FurtherCategory;
 use App\Model\Unit;
 use App\Model\Role;
+use App\Model\Item;
+use App\Model\Image;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -23,6 +25,8 @@ class DatabaseSeeder extends Seeder
         FurtherCategory::truncate();
         Unit::truncate();
         Role::truncate();
+        Item::truncate();
+        Image::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
@@ -32,5 +36,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FurtherCategoriesTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
+        $this->call(ImagesTableSeeder::class);
     }
 }
