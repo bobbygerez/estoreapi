@@ -39,19 +39,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+   
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        if (!$token = JWTAuth::attempt($credentials)) {
-            return response([
-                'msg' => 'Invalid Email or Password'
-            ], 400);
+        $token = null;
+         try {
+           if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json('Invalid username or password', 422);
+           }
+        } catch (JWTAuthException $e) {
+            return response()->json(['failed_to_create_token'], 500);
         }
-        return response([
+        return response()->json([
             'status' => 'success',
             'token' => $token
-        ]);
+        ], 200);
     }
 
     public function logout(Request $request) {
