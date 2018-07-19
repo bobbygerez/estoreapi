@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -43,7 +43,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-        $token = null;
+        $token = 'asdf';
          try {
            if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json('Invalid username or password', 422);
@@ -51,8 +51,10 @@ class LoginController extends Controller
         } catch (JWTAuthException $e) {
             return response()->json(['failed_to_create_token'], 500);
         }
+
         return response()->json([
-            'status' => 'success',
+            'user' => JWTAuth::user(),
+            'userLogin' => true,
             'token' => $token
         ], 200);
     }
@@ -74,4 +76,6 @@ class LoginController extends Controller
             ]);
         }
     }
+
+    
 }

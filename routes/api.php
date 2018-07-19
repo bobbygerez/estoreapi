@@ -3,7 +3,7 @@
 Route::post('login', 'Auth\LoginController@login');
 
 Route::group(['prefix' => 'auth', 'middleware' => 'jwt.auth'], function () {
-    Route::get('user', 'API\User\UserController@user');
+    Route::get('user', 'API\User\UserController@getAuthUser');
     Route::post('logout', 'Auth\LoginController@logout');
 });
 Route::get('get-items', 'API\Items\GetItemsController@getItems');
