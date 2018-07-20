@@ -11,11 +11,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
         $user = User::create([
         		'firstname' => 'super',
         		'lastname' => 'admin ',
+                'middlename' => 'middlename',
         		'email' => 'superAdmin@juanmerkado.com',
-        		'password' => Hash::make('12345678')
+        		'password' => Hash::make('23456789')
 
         	]);
 
@@ -28,8 +30,9 @@ class UsersTableSeeder extends Seeder
        $user = User::create([
                 'firstname' => 'store',
                 'lastname' => 'admin',
+                'middlename' => 'middlename',
                 'email' => 'storeAdmin@juanmerkado.com',
-                'password' => Hash::make('12345678')
+                'password' => Hash::make('23456789')
 
             ]);
 
@@ -42,8 +45,9 @@ class UsersTableSeeder extends Seeder
         $user = User::create([
                 'firstname' => 'Super',
                 'lastname' => 'Super Manager',
+                'middlename' => 'middlename',
                 'email' => 'superStaff@juanmerkado.com',
-                'password' => Hash::make('12345678')
+                'password' => Hash::make('23456789')
 
             ]);
 
@@ -56,8 +60,9 @@ class UsersTableSeeder extends Seeder
          $user = User::create([
                 'firstname' => 'Store',
                 'lastname' => 'Store CEO',
+                'middlename' => 'middlename',
                 'email' => 'storeStaff@juanmerkado.com',
-                'password' => Hash::make('12345678')
+                'password' => Hash::make('23456789')
 
             ]);
         $newUser = User::find($user->id);

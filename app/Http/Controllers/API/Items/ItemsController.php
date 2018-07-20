@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API\User;
+namespace App\Http\Controllers\Api\Items;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use JWTAuth;
-use App\Model\User;
-use Hash;
+use App\Model\Item;
 
-class UserController extends Controller
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,20 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
-        User::create([
-                'firstname' => $request->firstname,
-                'middlename' => $request->middlename,
-                'lastname' => $request->lastname,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
-                
-
-        return response()->json([
-
-                $request->all()
-            ]);
+        //
     }
 
     /**
@@ -62,7 +47,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        return response()->json([
+                'item' => Item::where('id', $id)->relTable()->first()
+            ]);
+        
     }
 
     /**
@@ -98,19 +87,4 @@ class UserController extends Controller
     {
         //
     }
-
-    public function getAuthUser(Request $request){
-        
-        $user = JWTAuth::toUser($request->token);
-
-        $user = $user->with('roles')->first();
-        return response()->json([
-            'user' => $user,
-            'success' =>true
-        ]);
-    }
-
-    
-
-    
 }

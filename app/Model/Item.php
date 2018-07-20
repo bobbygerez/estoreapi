@@ -33,8 +33,16 @@ class Item extends Model
        return $this->hasOne('App\Model\Category', 'id', 'category_id');
     }
 
+    public function subCategory(){
+       return $this->hasOne('App\Model\SubCategory', 'id', 'subcategory_id');
+    }
+
+    public function furtherCategory(){
+       return $this->hasOne('App\Model\FurtherCategory', 'id', 'further_category_id');
+    }
+
     public function scopeRelTable($query){
-        return $query->with(['images', 'category']);
+        return $query->with(['images', 'category', 'subCategory', 'furtherCategory']);
     }
 
 }
