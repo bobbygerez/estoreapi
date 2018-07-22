@@ -22,6 +22,16 @@ class ColorsTableSeeder extends Seeder
         		]);
 
 
+
+        }
+
+        for ($i=1; $i < 22; $i++) { 
+            Image::create([
+                'path' => 'images/uploads/colors/color-' . rand(1,12) . '.jpg',
+                'imageable_id' => rand(1, 11),
+                'imageable_type' => 'App\Model\Color',
+                'is_primary' => 1
+            ]);
         }
 
         

@@ -20,7 +20,7 @@ class ItemsTableSeeder extends Seeder
         $brgyCode = Brgy::orderBy('brgyCode')->select(['brgyCode'])->get();
         for ($i=0; $i < 1000; $i++) { 
         	
-        	Item::create([
+        	$item = Item::create([
         			'user_id' => rand(1,4),
         			'unit_id' => rand(1, 10),
         			'category_id' => rand(1, 8),
@@ -34,6 +34,12 @@ class ItemsTableSeeder extends Seeder
                     'discount' => $faker->numberBetween($min = 1, $max = 99),
         			'short_desc' => $faker->text($maxNbChars = 100) 
         		]);
+
+            Item::find($item->id)->colors()->attach($item->id, [
+                    'color_id' => rand(1, 11),
+                    'item_id' => $item->id
+                ]);
+
         }
     }
 }

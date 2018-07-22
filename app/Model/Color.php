@@ -9,4 +9,9 @@ class Color extends Model
     
     protected $table = 'colors';
     protected $fillable = ['user_id', 'name', 'desc'];
+
+    public function images(){
+
+    	return $this->morphMany('App\Model\Image', 'imageable', 'imageable_type', 'imageable_id');
+    }
 }

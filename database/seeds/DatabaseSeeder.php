@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+         $this->call(ColorsTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(SubCategoriesTableSeeder::class);
@@ -41,6 +42,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MenusTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ImagesTableSeeder::class);
-        $this->call(ColorsTableSeeder::class);
+        
     }
 }

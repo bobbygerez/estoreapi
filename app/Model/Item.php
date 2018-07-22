@@ -29,6 +29,10 @@ class Item extends Model
     	return $this->morphMany('App\Model\Image', 'imageable', 'imageable_type', 'imageable_id');
     }
 
+    public function colors(){
+        return $this->belongsToMany('App\Model\Color', 'color_item', 'item_id', 'color_id');
+    }
+
     public function category(){
        return $this->hasOne('App\Model\Category', 'id', 'category_id');
     }
@@ -41,8 +45,9 @@ class Item extends Model
        return $this->hasOne('App\Model\FurtherCategory', 'id', 'further_category_id');
     }
 
+
     public function scopeRelTable($query){
-        return $query->with(['images', 'category', 'subCategory', 'furtherCategory']);
+        return $query->with(['images', 'category', 'subCategory', 'furtherCategory', 'colors.images']);
     }
 
 }
