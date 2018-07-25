@@ -11,6 +11,10 @@ Route::get('menu-categories', 'API\Menu\MenuController@categories');
 Route::get('get-items/{catName}', 'API\Items\GetItemsController@cat');
 Route::get('get-items/{catName}/{subName}', 'API\Items\GetItemsController@subCat');
 Route::get('get-items/{catName}/{subName}/{furthName}', 'API\Items\GetItemsController@furtherCat');
+Route::get('get-provinces', 'API\Province\ProvinceController@allProvinces');
+Route::get('get-cities/{provCode}', 'API\City\CityController@getCities');
+Route::get('get-brgys/{citymunCode}', 'API\Brgy\BrgyController@getBrgy');
 Route::resource('items', 'API\Items\ItemsController');
 Route::resource('categories', 'API\Category\CategoryController');
 Route::resource('user', 'API\User\UserController');
+
