@@ -12,7 +12,8 @@
         "jenssegers/optimus": "^0.2.3",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "tymon/jwt-auth": "1.0.0-rc.2"
+        "tymon/jwt-auth": "1.0.0-rc.2",
+        "anouar/paypalpayment": ">=3.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

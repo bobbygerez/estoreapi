@@ -14,6 +14,8 @@ Route::get('get-items/{catName}/{subName}/{furthName}', 'API\Items\GetItemsContr
 Route::get('get-provinces', 'API\Province\ProvinceController@allProvinces');
 Route::get('get-cities/{provCode}', 'API\City\CityController@getCities');
 Route::get('get-brgys/{citymunCode}', 'API\Brgy\BrgyController@getBrgy');
+Route::get('get-selected-brgy/{brgyCode}', 'API\Brgy\BrgyController@selectedBrgy');
+Route::get('pay-with-credit-card', 'API\Payment\PaymentController@paywithCreditCard');
 Route::resource('items', 'API\Items\ItemsController');
 Route::resource('categories', 'API\Category\CategoryController');
 Route::resource('user', 'API\User\UserController');
