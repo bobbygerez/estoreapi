@@ -12,7 +12,14 @@ class GetItemsController extends Controller
     
     public function getItems(){
     	$request = app()->make('request');
-    	$items = Item::relTable()->get();
+        $items = '';
+        if ($request->provId != '') {
+            $items = Item::where('provCode', $request->provId )->relTable()->get();
+
+        }else {
+            $items = Item::relTable()->get();
+        }
+    	
 		$paginated = $this->paginatePage($items);
 
          return response()->json([
