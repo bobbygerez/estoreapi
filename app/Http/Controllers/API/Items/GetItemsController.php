@@ -19,6 +19,9 @@ class GetItemsController extends Controller
         }else {
             $items = Item::relTable()->get();
         }
+        if ($request->cityId != null ) {
+            $items = Item::where('citymunCode', $request->cityId )->relTable()->get();
+        }
     	
 		$paginated = $this->paginatePage($items);
 

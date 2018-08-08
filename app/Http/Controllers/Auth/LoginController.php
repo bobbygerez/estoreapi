@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use JWTAuth;
+use App\Model\User;
 
 class LoginController extends Controller
 {
@@ -53,7 +54,7 @@ class LoginController extends Controller
         }
 
         return response()->json([
-            'user' => JWTAuth::user(),
+            'user' => User::where('id',JWTAuth::user()->id )->with(['menus'])->first(),
             'userLogin' => true,
             'token' => $token
         ], 200);
