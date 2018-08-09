@@ -103,7 +103,7 @@ class UserController extends Controller
         
         $user = JWTAuth::toUser($request->token);
 
-        $user = $user->with('roles')->first();
+        $user = $user->with(['roles', 'menus'])->first();
         return response()->json([
             'user' => $user,
             'success' =>true
