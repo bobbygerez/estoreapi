@@ -11,17 +11,17 @@ class Item extends Model
 
     public function province(){
 
-        return $this->hasOne('App\Model\Province', 'provCode', 'provCode');
+        return $this->hasOne('App\Model\Province', 'id', 'provCode');
 
     }
 
     public function city(){
 
-        return $this->hasOne('App\Model\City', 'citymunCode', 'citymunCode');
+        return $this->hasOne('App\Model\City', 'id', 'citymunCode');
     }
 
     public function brgy(){
-         return $this->hasOne('App\Model\Brgy', 'brgyCode', 'brgyCode');
+         return $this->hasOne('App\Model\Brgy', 'id', 'brgyCode');
     }
 
     public function images(){
@@ -47,7 +47,7 @@ class Item extends Model
 
 
     public function scopeRelTable($query){
-        return $query->with(['images', 'category', 'subCategory', 'furtherCategory', 'colors.images']);
+        return $query->with(['images', 'category', 'subCategory', 'furtherCategory', 'colors.images', 'brgy', 'city', 'province']);
     }
 
 }
