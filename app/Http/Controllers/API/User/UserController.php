@@ -76,7 +76,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        return response()->json([
+                'user' => User::where('id', $id)->first()
+            ]);
     }
 
     /**
