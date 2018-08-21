@@ -91,7 +91,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->update($request->all());
+
+        return response()->json([
+               'users' => User::all()
+            ]);
     }
 
     /**
@@ -114,6 +119,21 @@ class UserController extends Controller
             'user' => $user,
             'success' =>true
         ]);
+    }
+
+    public function search(){
+        $request = app()->make('request');
+        $users = User::where('firstname', 'like', '%'. $request->search . '%')
+                            ->orWhere('lastname', 'like', '%'. $request->search . '%')
+                            ->get();
+        $arrayUser = $users->take(10)->map(function ($item, $key) {
+                    return $item->firstname . ' ' . $item->lastname;
+                });
+        return response()->json([
+                'users' => $users,
+                'arrayUser' => $arrayUser
+
+            ]);
     }
 
     

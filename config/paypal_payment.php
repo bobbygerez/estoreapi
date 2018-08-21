@@ -18,7 +18,7 @@ return [
 
     # Logging Information
     'log' => [
-        'log_enabled' => true,
+        'log_enabled' => false,
 
         # When using a relative path, the log file is created
         # relative to the .php file that is the entry point
