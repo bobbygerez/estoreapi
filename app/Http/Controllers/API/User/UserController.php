@@ -17,7 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        
+        return response()->json([
+                'users' => User::all()
+            ]);
     }
 
     /**
@@ -73,7 +76,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        return response()->json([
+                'user' => User::where('id', $id)->first()
+            ]);
     }
 
     /**
