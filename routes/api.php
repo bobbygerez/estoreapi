@@ -20,8 +20,9 @@ Route::get('get-brgys/{citymunCode}', 'API\Brgy\BrgyController@getBrgy');
 Route::get('get-selected-brgy/{brgyCode}', 'API\Brgy\BrgyController@selectedBrgy');
 Route::post('pay-with-credit-card', 'API\Payment\PaymentController@paywithCreditCard');
 Route::get('search-user', 'API\User\UserController@search');
+Route::get('search-category', 'API\Categories\CategoryController@search');
 Route::resource('roles', 'API\Roles\RoleController');
 Route::resource('items', 'API\Items\ItemsController');
-Route::resource('categories', 'API\Category\CategoryController');
+Route::resource('categories', 'API\Categories\CategoryController');
 Route::resource('user', 'API\User\UserController');
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Categories;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Category;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        
+        return response()->json([
+
+                'categories' => Category::all()
+
+            ]);
     }
 
     /**
@@ -57,7 +63,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        return response()->json([
+                'category' => Category::where('id', $id)->first()
+            ]);
     }
 
     /**
@@ -69,7 +78,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $cat = Category::find($id)->update($request->all());
+
+        return response()->json([
+                'categories' => Category::all()                
+            ]);
     }
 
     /**
@@ -80,6 +94,23 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        Category::find($id)->delete();
+         return response()->json([
+
+                'categories' => Category::all()
+
+            ]);
+    }
+
+    public function search(){
+
+        $request = app()->make('request');
+        $cat = Category::where('name', 'like', '%'. $request->search . '%')
+                            ->get();
+        return response()->json([
+                'categories' => $cat
+
+            ]);
     }
 }
