@@ -14,4 +14,12 @@ class SubCategory extends Model
 
     	return $this->hasMany('App\Model\FurtherCategory', 'subcategory_id', 'id');
     }
+
+    public function categories(){
+    	 return $this->belongsTo('App\Model\Category', 'category_id', 'id');
+    }
+
+    public function scopeRelTable($query){
+    	return $query->with(['categories']);
+    }
 }
