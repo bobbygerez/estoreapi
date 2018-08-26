@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API\Subcategory;
+namespace App\Http\Controllers\API\FurtherCategory;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\SubCategory;
+use App\Model\FurtherCategory;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class SubcategoryController extends Controller
+class FurtherCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,9 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $coll = SubCategory::relTable()->get();
-        
+        $furtherCat = FurtherCategory::relTable()->get();
         return response()->json([
-                'subcategories' => $this->paginatePage($coll)
+                'furtherCategories' => $this->paginatePage($furtherCat)
             ]);
     }
 
@@ -64,8 +63,12 @@ class SubcategoryController extends Controller
     public function edit($id)
     {
         
+        $furtherCat = FurtherCategory::where('id', $id)->relTable()->first();
+
         return response()->json([
-                'subcategory' => SubCategory::where('id', $id)->with('categories')->first()
+
+                'furtherCat' => $furtherCat
+                
             ]);
     }
 
@@ -78,11 +81,7 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        SubCategory::find($id)->update($request->all());
-        return response()->json([
-                'subcategories' => SubCategory::with('categories')->get()
-            ]);
+        //
     }
 
     /**
@@ -93,23 +92,9 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        
-        SubCategory::find($id)->delete();
-        return response()->json([
-                'subcategories' => SubCategory::with('categories')->get()
-            ]);
+        //
     }
 
-    public function search(){
-
-        $request = app()->make('request');
-        $subCat = SubCategory::where('name', 'like', '%'. $request->search . '%')
-                            ->with('categories')
-                            ->get();
-        return response()->json([
-                'subcategories' => $subCat
-            ]);
-    }
 
     public function paginatePage($collection){
 
@@ -117,11 +102,5 @@ class SubcategoryController extends Controller
        return new LengthAwarePaginator($collection->forPage($request->page, $request->perPage), $collection->count(), $request->perPage, $request->page);
 
         
-    }
-
-    public function getSub(){
-        return response()->json([
-                'subcategories' => SubCategory::all()
-            ]);
     }
 }
