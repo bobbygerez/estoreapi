@@ -24,6 +24,8 @@ Route::get('search-user', 'API\User\UserController@search');
 Route::get('search-category', 'API\Categories\CategoryController@search');
 Route::get('search-subcategory', 'API\Subcategory\SubcategoryController@search');
 
+
+Route::get('get-subcategories/{category_id}', 'API\Subcategory\SubcategoryController@getSubcategories');
 Route::resource('roles', 'API\Roles\RoleController');
 Route::resource('items', 'API\Items\ItemsController');
 Route::resource('categories', 'API\Categories\CategoryController');

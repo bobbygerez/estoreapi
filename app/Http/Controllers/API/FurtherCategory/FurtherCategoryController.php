@@ -81,7 +81,10 @@ class FurtherCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $furtherCat = FurtherCategory::find($id)->update($request->all());
+
+        return $this->index();
     }
 
     /**

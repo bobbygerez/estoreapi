@@ -104,10 +104,9 @@ class SubcategoryController extends Controller
 
         $request = app()->make('request');
         $subCat = SubCategory::where('name', 'like', '%'. $request->search . '%')
-                            ->with('categories')
-                            ->get();
+                            ->relTable()->get();
         return response()->json([
-                'subcategories' => $subCat
+                'subcategories' => $this->paginatePage($subCat)
             ]);
     }
 
@@ -122,6 +121,13 @@ class SubcategoryController extends Controller
     public function getSub(){
         return response()->json([
                 'subcategories' => SubCategory::all()
+            ]);
+    }
+
+    public function getSubcategories($categoryId){
+
+        return response()->json([
+                'subcategories' => SubCategory::where('category_id', $categoryId)->get()
             ]);
     }
 }
