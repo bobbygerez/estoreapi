@@ -18,7 +18,7 @@ class CategoryController extends Controller
         
         return response()->json([
 
-                'categories' => Category::all()
+                'categories' => Category::newOrder()->get()
 
             ]);
     }
@@ -41,7 +41,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create($request->all());
+
+        return $this->index();
+
     }
 
     /**
@@ -81,9 +84,7 @@ class CategoryController extends Controller
         
         $cat = Category::find($id)->update($request->all());
 
-        return response()->json([
-                'categories' => Category::all()                
-            ]);
+        return $this->index();
     }
 
     /**
@@ -96,11 +97,8 @@ class CategoryController extends Controller
     {
         
         Category::find($id)->delete();
-         return response()->json([
-
-                'categories' => Category::all()
-
-            ]);
+        
+        return $this->index();
     }
 
     public function search(){
@@ -108,6 +106,7 @@ class CategoryController extends Controller
         $request = app()->make('request');
         $cat = Category::where('name', 'like', '%'. $request->search . '%')
                             ->get();
+
         return response()->json([
                 'categories' => $cat
 

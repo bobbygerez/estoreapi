@@ -15,5 +15,10 @@ class Category extends Model
     	return $this->hasMany('App\Model\SubCategory', 'category_id', 'id');
     }
 
+    public function scopeNewOrder($query){
+
+    	return $query->orderBy('created_at', 'DESC');
+    }
+
     
 }

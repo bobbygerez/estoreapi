@@ -106,4 +106,14 @@ class FurtherCategoryController extends Controller
 
         
     }
+
+    public function search(){
+
+        $request = app()->make('request');
+        $subCat = FurtherCategory::where('name', 'like', '%'. $request->search . '%')
+                            ->relTable()->get();
+        return response()->json([
+                'furtherCategories' => $this->paginatePage($subCat)
+            ]);
+    }
 }

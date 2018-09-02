@@ -41,7 +41,8 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        SubCategory::create($request->all());
+        return $this->index();
     }
 
     /**
@@ -80,9 +81,7 @@ class SubcategoryController extends Controller
     {
         
         SubCategory::find($id)->update($request->all());
-        return response()->json([
-                'subcategories' => SubCategory::with('categories')->get()
-            ]);
+         return $this->index();
     }
 
     /**
@@ -95,9 +94,7 @@ class SubcategoryController extends Controller
     {
         
         SubCategory::find($id)->delete();
-        return response()->json([
-                'subcategories' => SubCategory::with('categories')->get()
-            ]);
+         return $this->index();
     }
 
     public function search(){
@@ -119,9 +116,7 @@ class SubcategoryController extends Controller
     }
 
     public function getSub(){
-        return response()->json([
-                'subcategories' => SubCategory::all()
-            ]);
+         return $this->index();
     }
 
     public function getSubcategories($categoryId){

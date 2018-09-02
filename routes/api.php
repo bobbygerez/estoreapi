@@ -23,7 +23,7 @@ Route::post('pay-with-credit-card', 'API\Payment\PaymentController@paywithCredit
 Route::get('search-user', 'API\User\UserController@search');
 Route::get('search-category', 'API\Categories\CategoryController@search');
 Route::get('search-subcategory', 'API\Subcategory\SubcategoryController@search');
-
+Route::get('search-further-category', 'API\FurtherCategory\FurtherCategoryController@search');
 
 Route::get('get-subcategories/{category_id}', 'API\Subcategory\SubcategoryController@getSubcategories');
 Route::resource('roles', 'API\Roles\RoleController');
