@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Items;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Item;
-
+use Illuminate\Pagination\LengthAwarePaginator;
 class ItemsController extends Controller
 {
     /**
@@ -15,7 +15,12 @@ class ItemsController extends Controller
      */
     public function index()
     {
-        //
+        
+        $items =  Item::orderBy('created_at', 'ASC')->relTable()->get();
+
+        return response()->json([
+                'items' => $this->paginatePage($items)
+            ]);
     }
 
     /**
@@ -86,5 +91,13 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+     public function paginatePage($collection){
+
+       $request = app()->make('request');
+       return new LengthAwarePaginator($collection->forPage($request->page, $request->perPage), $collection->count(), $request->perPage, $request->page);
+
+        
     }
 }
