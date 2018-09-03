@@ -93,7 +93,7 @@ class SubcategoryController extends Controller
     public function destroy($id)
     {
         
-        SubCategory::find($id)->delete();
+         SubCategory::find($id)->delete();
          return $this->index();
     }
 
@@ -116,7 +116,10 @@ class SubcategoryController extends Controller
     }
 
     public function getSub(){
-         return $this->index();
+         
+         return response()->json([
+                'subcategories' => SubCategory::all()
+            ]);
     }
 
     public function getSubcategories($categoryId){

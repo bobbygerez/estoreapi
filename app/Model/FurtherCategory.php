@@ -16,6 +16,6 @@ class FurtherCategory extends Model
     }
 
     public function scopeRelTable($query){
-    	return $query->with('subcategories.categories');
+    	return $query->orderby('created_at', 'DESC')->with('subcategories.categories');
     }	
 }

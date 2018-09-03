@@ -40,7 +40,10 @@ class FurtherCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        FurtherCategory::create($request->all());
+        return $this->index();
+        
     }
 
     /**
@@ -95,7 +98,8 @@ class FurtherCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        FurtherCategory::find($id)->delete();
+        return $this->index();
     }
 
 
