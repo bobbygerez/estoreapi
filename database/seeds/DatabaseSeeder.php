@@ -11,6 +11,7 @@ use App\Model\Item;
 use App\Model\Image;
 use App\Model\Color;
 use App\Model\Size;
+use App\Model\Store;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         FurtherCategory::truncate();
         Unit::truncate();
         Role::truncate();
+        Store::truncate();
         Item::truncate();
         Image::truncate();
         Color::truncate();
@@ -34,12 +36,13 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
-         $this->call(ColorsTableSeeder::class);
+        $this->call(ColorsTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(SubCategoriesTableSeeder::class);
         $this->call(FurtherCategoriesTableSeeder::class);
         $this->call(MenusTableSeeder::class);
+        $this->call(StoreTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ImagesTableSeeder::class);
         
