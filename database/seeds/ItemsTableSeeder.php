@@ -23,6 +23,8 @@ class ItemsTableSeeder extends Seeder
         	$item = Item::create([
         			'user_id' => rand(1,4),
         			'unit_id' => rand(1, 10),
+                    'store_id' => rand(1, 99),
+                    'branch_id' => rand(1, 98),
         			'category_id' => rand(1, 8),
         			'subcategory_id' => rand(1, 26),
         			'further_category_id' => rand(1, 99),
@@ -32,7 +34,8 @@ class ItemsTableSeeder extends Seeder
         			'name' =>  $faker->text($maxNbChars = 35),
                     'amount' => $faker->randomFloat($nbMaxDecimals = 2, $min = 50, $max = 99000),
                     'discount' => $faker->numberBetween($min = 1, $max = 99),
-        			'short_desc' => $faker->text($maxNbChars = 100) 
+        			'short_desc' => $faker->text($maxNbChars = 100),
+                    'status' => true
         		]);
 
             Item::find($item->id)->colors()->attach($item->id, [

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Model;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -18,6 +18,11 @@ class Category extends Model
     public function scopeNewOrder($query){
 
     	return $query->orderBy('created_at', 'DESC');
+    }
+
+    public function getCreatedAtAttribute($val){
+
+        return Carbon::parse($val)->toDayDateTimeString();
     }
 
     

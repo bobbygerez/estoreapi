@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Items;
+namespace App\Http\Controllers\API\Store;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Item;
-use Illuminate\Pagination\LengthAwarePaginator;
-class ItemsController extends Controller
+use App\Model\Store;
+
+class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,8 @@ class ItemsController extends Controller
     public function index()
     {
         
-        $items =  Item::orderBy('created_at', 'ASC')->relTable()->get();
-
         return response()->json([
-                'items' => $this->paginatePage($items)
+                'stores' => Store::relTable()
             ]);
     }
 
@@ -41,15 +39,7 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        foreach ($request->images as $image) {
-            
-            $image = str_replace('data:image/png;base64,', '', $image['dataURL']);
-            $image = str_replace(' ', '+', $image);
-            $imageName = str_random(10).'.'.'png';
-            \File::put(storage_path(). '/uploads/' . $imageName, base64_decode($image));
-        }
-        
-        return response()->json();
+        //
     }
 
     /**
@@ -60,11 +50,7 @@ class ItemsController extends Controller
      */
     public function show($id)
     {
-        
-        return response()->json([
-                'item' => Item::where('id', $id)->relTable()->first()
-            ]);
-        
+        //
     }
 
     /**
@@ -101,11 +87,15 @@ class ItemsController extends Controller
         //
     }
 
-     public function paginatePage($collection){
 
-       $request = app()->make('request');
-       return new LengthAwarePaginator($collection->forPage($request->page, $request->perPage), $collection->count(), $request->perPage, $request->page);
+    public function search(){
 
-        
+        $request = app()->make('request');
+
+        return response()->json([
+                'stores' => Store::where('name', 'LIKE', '%'. $request->name . '%')
+                    ->with('address')
+                    ->take(10)->get()
+            ]);
     }
 }

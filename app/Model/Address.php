@@ -16,8 +16,8 @@ class Address extends Model
     	'latitude'
     ];
 
-    public function store(){
+    public function addressable(){
 
-    	return $this->morphMany('App\Model\Store', 'addressable');
+    	 return $this->morphTo();
     }
 }

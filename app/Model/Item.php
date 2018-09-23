@@ -3,12 +3,22 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Item extends Model
 {
     
     protected $table = 'items';
 
+    public function store(){
+
+        return $this->hasOne('App\Model\Store', 'id', 'store_id');
+    }
+
+    public function branch(){
+
+        return $this->hasOne('App\Model\Branch', 'id', 'branch_id');
+    }
     public function province(){
 
         return $this->hasOne('App\Model\Province', 'id', 'provCode');
@@ -47,7 +57,12 @@ class Item extends Model
 
 
     public function scopeRelTable($query){
-        return $query->with(['images', 'category', 'subCategory', 'furtherCategory', 'colors.images', 'brgy', 'city', 'province']);
+        return $query->with(['images', 'category', 'subCategory', 'furtherCategory', 'colors.images', 'brgy', 'city', 'province', 'store', 'branch']);
     }
 
+
+    public function getCreatedAtAttribute($value){
+
+        return Carbon::parse($value)->toDayDateTimeString();
+    }
 }

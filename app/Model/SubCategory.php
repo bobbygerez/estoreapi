@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class SubCategory extends Model
 {
@@ -21,5 +22,10 @@ class SubCategory extends Model
 
     public function scopeRelTable($query){
     	return $query->orderBy('created_at', 'DESC')->with(['categories']);
+    }
+
+    public function getCreatedAtAttribute($val){
+
+        return Carbon::parse($val)->toDayDateTimeString();
     }
 }

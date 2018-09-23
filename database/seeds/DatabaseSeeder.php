@@ -12,6 +12,8 @@ use App\Model\Image;
 use App\Model\Color;
 use App\Model\Size;
 use App\Model\Store;
+use App\Model\Branch;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -33,6 +35,8 @@ class DatabaseSeeder extends Seeder
         Image::truncate();
         Color::truncate();
         Size::truncate();
+        Store::truncate();
+        Branch::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
@@ -43,6 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FurtherCategoriesTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(StoreTableSeeder::class);
+        $this->call(BranchesTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ImagesTableSeeder::class);
         

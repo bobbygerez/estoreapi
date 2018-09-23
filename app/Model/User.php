@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class User extends Model
 {
@@ -25,5 +26,10 @@ class User extends Model
 
      public function menus(){
         return $this->belongsToMany('App\Model\Menu', 'menu_user', 'user_id', 'menu_id');
+    }
+
+    public function getCreatedAtAttribute($val){
+
+        return Carbon::parse($val)->toDayDateTimeString();
     }
 }

@@ -8,8 +8,18 @@ class Store extends Model
 {
     protected $table = 'stores';
 
-    public function addressable(){
+    public function address(){
 
-    	return $this->morphTo();
+    	return $this->morphMany('App\Model\Address', 'addressable');
+    }
+
+    public function branches(){
+
+    	return $this->belongsTo('App\Model\Branch');
+    }
+
+    public function scopeRelTable($query){
+
+    	return $query->with(['branches', 'address'])->get();
     }
 }
