@@ -18,9 +18,9 @@ class CreateColorItemTable extends Migration
             $table->integer('color_id')->unsigned()->nullable();
             $table->foreign('color_id')->references('id')
                 ->on('colors');
-            $table->integer('item_id')->unsigned()->nullable();
-            $table->foreign('item_id')->references('id')
-                ->on('items');
+            $table->integer('item_info_id')->unsigned()->nullable();
+            $table->foreign('item_info_id')->references('id')
+                ->on('item_info');
             $table->timestamps();
         });
     }

@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MenusTableSeeder::class);
         $this->call(StoreTableSeeder::class);
         $this->call(BranchesTableSeeder::class);
+        $this->call(SizesTableSeeder::class);
         $this->call(ItemsTableSeeder::class);
         $this->call(ImagesTableSeeder::class);
         

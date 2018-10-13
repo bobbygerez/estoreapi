@@ -16,7 +16,7 @@ class ImagesTableSeeder extends Seeder
     		Image::create([
 		        'path' => 'images/uploads/' . rand(1,67) . '.jpg',
 		        'imageable_id' => $i,
-		        'imageable_type' => 'App\Model\Item',
+		        'imageable_type' => 'App\Model\ItemInfo',
 		        'is_primary' => 1
     		]);
     	}

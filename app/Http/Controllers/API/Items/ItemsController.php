@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\Items;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Brgy;
 use App\Model\Item;
+use App\Model\ItemInfo;
 use Illuminate\Pagination\LengthAwarePaginator;
 class ItemsController extends Controller
 {
@@ -16,11 +18,7 @@ class ItemsController extends Controller
     public function index()
     {
         
-        $items =  Item::orderBy('created_at', 'ASC')->relTable()->get();
-
-        return response()->json([
-                'items' => $this->paginatePage($items)
-            ]);
+        
     }
 
     /**
@@ -41,6 +39,37 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+        $item = Item::create([
+                'name' => $request->name,
+                'amount' => $request->amount,
+                'discount' => 0,
+                'quantity' => $request->quantity,
+                'short_desc' => $request->short_desc,
+                'status' => $request->status
+            ]);
+        if (count($request->city_ids) > 1) {
+            foreach ($request->city_ids as $citymunCode) {
+                $brgys = Brgy::where('citymunCode', $citymunCode)->get();
+                foreach ($brgys as $brgyCode) {
+                    
+                    ItemInfo::create([
+                            'item_id' => $item->id,
+                            'user_id' => $user->id,
+                            'store_id' => $request->store_id,
+                            'branch_id' => $request->branch_ids
+                        ]);
+
+                }
+            }
+                
+        }else{
+            foreach ($request->city_ids as $citymunCode) {
+                 foreach ($request->brgy_ids as $brgyId) {
+               
+                }
+            }
+        }
+        
         foreach ($request->images as $image) {
             
             $image = str_replace('data:image/png;base64,', '', $image['dataURL']);
@@ -62,7 +91,7 @@ class ItemsController extends Controller
     {
         
         return response()->json([
-                'item' => Item::where('id', $id)->relTable()->first()
+                'item' => ItemInfo::where('id', $id)->relTable()->first()
             ]);
         
     }

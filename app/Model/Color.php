@@ -14,4 +14,10 @@ class Color extends Model
 
     	return $this->morphMany('App\Model\Image', 'imageable', 'imageable_type', 'imageable_id');
     }
+
+    public function scopeRelTable($query){
+
+    	return $query->with(['images'])->get();
+    	
+    }
 }

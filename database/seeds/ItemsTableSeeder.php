@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use App\Model\City;
 use App\Model\Brgy;
 use App\Model\Item;
+use App\Model\Color;
+use App\Model\ItemInfo;
 
 class ItemsTableSeeder extends Seeder
 {
@@ -20,29 +22,50 @@ class ItemsTableSeeder extends Seeder
         $brgyCode = Brgy::orderBy('brgyCode')->select(['brgyCode'])->get();
         for ($i=0; $i < 1000; $i++) { 
         	
-        	$item = Item::create([
-        			'user_id' => rand(1,4),
-        			'unit_id' => rand(1, 10),
-                    'store_id' => rand(1, 99),
-                    'branch_id' => rand(1, 98),
-        			'category_id' => rand(1, 8),
-        			'subcategory_id' => rand(1, 26),
-        			'further_category_id' => rand(1, 99),
-                    'brgyCode' => rand(1, 42029),
-                    'citymunCode' => rand(1, 1646),
-                    'provCode'=> rand(1, 87),
-        			'name' =>  $faker->text($maxNbChars = 35),
-                    'amount' => $faker->randomFloat($nbMaxDecimals = 2, $min = 50, $max = 99000),
-                    'discount' => $faker->numberBetween($min = 1, $max = 99),
-        			'short_desc' => $faker->text($maxNbChars = 100),
-                    'status' => true
-        		]);
+        	$item = new Item();
+            $item->sku = $this->sku($faker->text($maxNbChars = 10));
+        	$item->name = $faker->text($maxNbChars = 35);
+            $item->amount = $faker->randomFloat($nbMaxDecimals = 2, $min = 50, $max = 99000);
+            $item->quantity = rand(1, 100);
+            $item->discount = $faker->numberBetween($min = 1, $max = 99);
+        	$item->short_desc = $faker->text($maxNbChars = 100);
+            $item->status = true;
+            $item->save();
 
-            Item::find($item->id)->colors()->attach($item->id, [
+            
+           
+
+            $info = new ItemInfo();
+            $info->item_id = $item->id;
+            $info->user_id = rand(1, 4);
+            $info->unit_id = rand(1, 10);
+            $info->store_id = rand(1, 99);
+            $info->branch_id = rand(1, 98);
+            $info->category_id = rand(1, 8);
+            $info->subcategory_id = rand(1, 26);
+            $info->further_category_id = rand(1, 99);
+            $info->brgyCode = rand(1, 42029);
+            $info->citymunCode = rand(1, 1646);
+            $info->provCode = rand(1, 87);
+            $info->save();
+
+            $newItem = ItemInfo::find($info->id);
+             $newItem->colors()->attach($info->id, [
                     'color_id' => rand(1, 11),
-                    'item_id' => $item->id
+                    'item_info_id' => $info->id
                 ]);
 
+            
+
         }
+    }
+
+    public function sku($name=false) {
+        if ($name) {
+            $sku = substr(strtoupper(str_replace(array('a','e','i','o','u'), '', $name)), 0, 6);
+        } else {
+            $sku = $this->lexicalize(explode(',', 'b,c,d,f,g,h,j,k,l,m,n,p,q,r,s,t,v,w,x,y,z'), 3, 6, 'strtoupper');
+        }
+        return str_replace(' ', '', $sku) . "-" . rand(100,999);
     }
 }

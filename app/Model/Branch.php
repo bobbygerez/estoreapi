@@ -13,4 +13,6 @@ class Branch extends Model
 
     	return $this->hasMany('App\Model\Store', 'id', 'store_id');
     }
+
+    
 }
