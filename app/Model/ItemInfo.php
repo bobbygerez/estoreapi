@@ -11,7 +11,7 @@ class ItemInfo extends Model
 
     protected $fillable = [
 
-        'item_id', 'user_id', 'store_id'
+        'item_id', 'user_id', 'store_id', 'branch_id', 'unit_id', 'category_id', 'subcategory_id', 'further_category_id', 'provCode', 'citymunCode', 'brgyCode'
     ];
     public function item(){
 

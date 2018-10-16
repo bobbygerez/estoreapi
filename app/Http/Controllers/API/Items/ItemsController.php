@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Items;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use JWTAuth;
 use App\Model\Brgy;
 use App\Model\Item;
 use App\Model\ItemInfo;
@@ -39,15 +40,26 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        JWTAuth::setToken($request->token);
+        $user = JWTAuth::toUser($request->token);
+
         $item = Item::create([
+                'sku' => $request->sku,
                 'name' => $request->name,
                 'amount' => $request->amount,
-                'discount' => 0,
+                'discount' => $request->discount,
                 'quantity' => $request->quantity,
                 'short_desc' => $request->short_desc,
+                'long_desc' => $request->long_desc,
                 'status' => $request->status
             ]);
+
+        $user = JWTAuth::toUser($request->token);
+
         if (count($request->city_ids) > 1) {
+
             foreach ($request->city_ids as $citymunCode) {
                 $brgys = Brgy::where('citymunCode', $citymunCode)->get();
                 foreach ($brgys as $brgyCode) {
@@ -56,16 +68,38 @@ class ItemsController extends Controller
                             'item_id' => $item->id,
                             'user_id' => $user->id,
                             'store_id' => $request->store_id,
-                            'branch_id' => $request->branch_ids
+                            'branch_id' => $request->branch_ids,
+                            'unit_id' => $request->unit_ids,
+                            'category_id' => $request->category_id,
+                            'subcategory_id' => $request->subcategory_id,
+                            'further_category_id' => $request->further_category_id,
+                            'provCode' => $request->provCode,
+                            'citymunCode' => $citymunCode,
+                            'brgyCode' => $brgyCode
                         ]);
 
                 }
             }
                 
         }else{
+
+            //One city selected
             foreach ($request->city_ids as $citymunCode) {
-                 foreach ($request->brgy_ids as $brgyId) {
-               
+                 foreach ($request->brgy_ids as $brgyCode) {
+
+                    ItemInfo::create([
+                            'item_id' => $item->id,
+                            'user_id' => $user->id,
+                            'store_id' => $request->store_id,
+                            'branch_id' => $request->branch_ids,
+                            'unit_id' => $request->unit_ids,
+                            'category_id' => $request->category_id,
+                            'subcategory_id' => $request->subcategory_id,
+                            'further_category_id' => $request->further_category_id,
+                            'provCode' => $request->provCode,
+                            'citymunCode' => $citymunCode,
+                            'brgyCode' => $brgyCode
+                        ]);
                 }
             }
         }
@@ -136,5 +170,9 @@ class ItemsController extends Controller
        return new LengthAwarePaginator($collection->forPage($request->page, $request->perPage), $collection->count(), $request->perPage, $request->page);
 
         
+    }
+
+    public function createItemInfo($request){
+
     }
 }

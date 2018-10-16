@@ -12,7 +12,7 @@ class Item extends Model
 
     protected $fillable = [
 
-        'name', 'amount', 'short_desc', 'discount', 'status', 'quantity'
+        'name', 'amount', 'short_desc', 'long_desc', 'discount', 'status', 'quantity', 'sku'
         
     ];
 

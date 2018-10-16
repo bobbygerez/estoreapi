@@ -117,7 +117,7 @@ class UserController extends Controller
         $user = $user->with(['roles', 'menus'])->first();
         return response()->json([
             'user' => $user,
-            'success' =>true
+            'success' =>true,
         ]);
     }
 
