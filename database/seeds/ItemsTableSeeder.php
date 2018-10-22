@@ -32,9 +32,6 @@ class ItemsTableSeeder extends Seeder
             $item->status = true;
             $item->save();
 
-            
-           
-
             $info = new ItemInfo();
             $info->item_id = $item->id;
             $info->user_id = rand(1, 4);

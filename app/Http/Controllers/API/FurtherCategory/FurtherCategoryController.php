@@ -120,4 +120,11 @@ class FurtherCategoryController extends Controller
                 'furtherCategories' => $this->paginatePage($subCat)
             ]);
     }
+
+    public function getFurther($subcategoryId){
+
+        return response()->json([
+                'furtherCategories' => FurtherCategory::where('subcategory_id', $subcategoryId)->get()
+            ]);
+    }
 }

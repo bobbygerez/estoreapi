@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Items;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
+use App\Model\Province;
+use App\Model\City;
 use App\Model\Brgy;
 use App\Model\Item;
 use App\Model\ItemInfo;
@@ -73,9 +75,9 @@ class ItemsController extends Controller
                             'category_id' => $request->category_id,
                             'subcategory_id' => $request->subcategory_id,
                             'further_category_id' => $request->further_category_id,
-                            'provCode' => $request->provCode,
-                            'citymunCode' => $citymunCode,
-                            'brgyCode' => $brgyCode
+                            'provCode' => Province::where('provCode', $request->provCode)->first()->id,
+                            'citymunCode' => City::where('citymunCode', $citymunCode)->first()->id,
+                            'brgyCode' => Brgy::where('brgyCode', $brgyCode)->first()->id
                         ]);
 
                 }
@@ -96,9 +98,9 @@ class ItemsController extends Controller
                             'category_id' => $request->category_id,
                             'subcategory_id' => $request->subcategory_id,
                             'further_category_id' => $request->further_category_id,
-                            'provCode' => $request->provCode,
-                            'citymunCode' => $citymunCode,
-                            'brgyCode' => $brgyCode
+                            'provCode' => Province::where('provCode', $request->provCode)->first()->id,
+                            'citymunCode' => City::where('citymunCode', $citymunCode)->first()->id,
+                            'brgyCode' => Brgy::where('brgyCode', $brgyCode)->first()->id
                         ]);
                 }
             }
@@ -109,10 +111,10 @@ class ItemsController extends Controller
             $image = str_replace('data:image/png;base64,', '', $image['dataURL']);
             $image = str_replace(' ', '+', $image);
             $imageName = str_random(10).'.'.'png';
-            \File::put(storage_path(). '/uploads/' . $imageName, base64_decode($image));
+            \File::put(public_path(). '/images/uploads/' . $imageName, base64_decode($image));
         }
         
-        return response()->json();
+        return response()->json('asdf');
     }
 
     /**

@@ -160,7 +160,13 @@ class ItemInfoController extends Controller
     public function paginatePage($collection){
 
         $request = app()->make('request');
-       return new LengthAwarePaginator($collection->forPage($request->page, $request->perPage), $collection->count(), $request->perPage, $request->page);
+       $paginator =  new LengthAwarePaginator($collection->forPage($request->page, $request->perPage), $collection->count(), $request->perPage, $request->page);
+       if (count($paginator) > 0){
+            return $paginator;
+       }else{
+
+          return  new LengthAwarePaginator($collection->forPage(1, $request->perPage), $collection->count(), $request->perPage, 1);
+       }
 
         
     }
